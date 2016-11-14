@@ -1,0 +1,9 @@
+numpy>=1.9
+keras
+deeplift==0.3
+shapely
+simdna
+matplotlib
+sklearn
+pyprg
+pydot_ng
