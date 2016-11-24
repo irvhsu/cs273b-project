@@ -353,7 +353,6 @@ class SequenceDNN_Regression(Model):
                 self.model.add(TimeDistributedDense(TDD_size, activation='relu'))
             self.model.add(Flatten())
             self.model.add(Dense(output_dim=self.num_tasks))
-            self.model.add(Activation('sigmoid'))
             self.model.compile(optimizer='rmsprop', loss='mse')
         else:
             raise ValueError("Exactly one of seq_length or keras_model must be specified!")
