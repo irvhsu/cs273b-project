@@ -79,12 +79,12 @@ class ClassificationResult(object):
 
 class RegressionResult(object):
 
-    def __init__(self, labels, predictions, task_names=None):
+    def __init__(self, labels, predictions, sample_weight=None, task_names=None):
         self.results = [OrderedDict((
-            ('Mean Squared Error', mean_squared_error(task_labels, task_predictions)),
-            ('Mean Absolute Error', mean_absolute_error(task_labels, task_predictions)),
-            ('Median Absolute Error', median_absolute_error(task_labels, task_predictions)),
-            ('R2 Score', r2_score(task_labels, task_predictions)),
+            ('Mean Squared Error', mean_squared_error(task_labels, task_predictions, sample_weight=sample_weight)),
+            ('Mean Absolute Error', mean_absolute_error(task_labels, task_predictions, sample_weight=sample_weight)),
+            ('Median Absolute Error', median_absolute_error(task_labels, task_predictions, sample_weight=sample_weight)),
+            ('R2 Score', r2_score(task_labels, task_predictions, sample_weight=sample_weight)),
         )) for task_labels, task_predictions in zip(labels.T, predictions.T)]
         self.task_names = task_names
         self.multitask = labels.shape[1] > 1

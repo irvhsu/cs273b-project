@@ -339,10 +339,9 @@ class SequenceDNN_Regression(Model):
                 conv_height = 4 if i == 0 else 1
                 self.model.add(Convolution2D(
                     nb_filter=nb_filter, nb_row=conv_height,
-                    nb_col=nb_col, activation='linear',
+                    nb_col=nb_col, activation='relu',
                     init='he_normal', input_shape=(1, 4, seq_length),
                     W_regularizer=l1(L1), b_regularizer=l1(L1)))
-                self.model.add(Activation('relu'))
                 self.model.add(Dropout(dropout))
             self.model.add(MaxPooling2D(pool_size=(1, pool_width)))
             if use_RNN:
@@ -353,12 +352,13 @@ class SequenceDNN_Regression(Model):
                 self.model.add(TimeDistributedDense(TDD_size, activation='relu'))
             self.model.add(Flatten())
             self.model.add(Dense(output_dim=self.num_tasks))
-            self.model.compile(optimizer='rmsprop', loss='mse')
+            self.model.compile(optimizer='adam', loss='mse')
         else:
             raise ValueError("Exactly one of seq_length or keras_model must be specified!")
 
     def train(self, X, y, validation_data, early_stopping_metric='Mean Squared Error',
-              early_stopping_patience=5, save_best_model_to_prefix=None):
+              early_stopping_patience=5, save_best_model_to_prefix=None,
+              train_sample_weight=None, valid_sample_weight=None):
         multitask = y.shape[1] > 1
         if self.verbose >= 1:
             print('Training model (* indicates new best result)...')
@@ -366,9 +366,9 @@ class SequenceDNN_Regression(Model):
         early_stopping_wait = 0
         best_metric = np.inf
         for epoch in range(1, self.num_epochs + 1):
-            self.model.fit(X, y, batch_size=128, nb_epoch=1, verbose=self.verbose >= 2)
-            epoch_train_metrics = self.test(X, y)
-            epoch_valid_metrics = self.test(X_valid, y_valid)
+            self.model.fit(X, y, batch_size=128, nb_epoch=1, verbose=self.verbose >= 2, sample_weight = train_sample_weight)
+            epoch_train_metrics = self.test(X, y, sample_weight=train_sample_weight)
+            epoch_valid_metrics = self.test(X_valid, y_valid, sample_weight=valid_sample_weight)
             self.train_metrics.append(epoch_train_metrics)
             self.valid_metrics.append(epoch_valid_metrics)
             if self.verbose >= 1:
