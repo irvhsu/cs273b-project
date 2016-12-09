@@ -83,7 +83,7 @@ class RegressionResult(object):
         self.results = [OrderedDict((
             ('Mean Squared Error', mean_squared_error(task_labels, task_predictions, sample_weight=sample_weight)),
             ('Mean Absolute Error', mean_absolute_error(task_labels, task_predictions, sample_weight=sample_weight)),
-            ('Median Absolute Error', median_absolute_error(task_labels, task_predictions, sample_weight=sample_weight)),
+            ('Median Absolute Error', median_absolute_error(task_labels, task_predictions)),
             ('R2 Score', r2_score(task_labels, task_predictions, sample_weight=sample_weight)),
         )) for task_labels, task_predictions in zip(labels.T, predictions.T)]
         self.task_names = task_names
