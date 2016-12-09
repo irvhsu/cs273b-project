@@ -17,7 +17,7 @@ def get_deep(directory):
                 start = int(start)
                 for i, task in enumerate(tasks):
                     if chrom not in deeplift[task]: deeplift[task][chrom] = {}
-                    for shift in range(145):
+                    for shift in range(120):
                         pos = start + shift
                         if pos not in deeplift[task][chrom]: deeplift[task][chrom][pos] = []
                         deeplift[task][chrom][pos] += [data[shift + i*145]]
