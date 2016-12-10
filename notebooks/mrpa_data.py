@@ -1,5 +1,6 @@
 from warnings import warn
 import numpy as np
+from collections import OrderedDict
 
 class MrpaData:
     cell_types =  ['HepG2', 'K562']
@@ -56,7 +57,7 @@ class MrpaData:
         return [(cell_type, promoter) for cell_type in self.cell_types for promoter in self.promoters]
 
     def _load_data(self):
-        split_data = {}
+        split_data = OrderedDict()
         for cell_type in self.cell_types:
             for promoter in self.promoters:
                 experiment_key = (cell_type, promoter)
@@ -82,7 +83,7 @@ class MrpaData:
         return split_data
 
     def _merge_data(self):
-        data = {}
+        data = OrderedDict()
         for experiment_key, key_to_split in self.split_data.items():
             data[experiment_key] = {}
             for key, val in key_to_split.items():
