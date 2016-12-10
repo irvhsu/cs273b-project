@@ -31,7 +31,7 @@ experiments = [("minP", "HepG2"), ("minP", "K562"), ("SV40P", "HepG2"), ("SV40P"
 ism = {}
 base_to_row = {'A': 0, 'T': 1, 'C': 2, 'G': 3}
 
-for name in id_to_seq.keys()[:10]:
+for name in id_to_seq.keys():
     print name
     sequence, coords = str(id_to_seq[name][0]), id_to_seq[name][1]
     chrom, start, end = str(coords[0]), int(coords[1]), int(coords[2])
@@ -51,7 +51,7 @@ for name in id_to_seq.keys()[:10]:
                         ism[(experiments[k], chrom, (start + (i * 29) + j))] = [np.amax(np.abs(ISM[k][0][0][:,j]))]
     for i in xrange(0, 6):
         model_input = np.zeros((1, 1, 4, 145))
-        subseq = sequence[(i * 29) : (i * 29) + 145]
+        subseq = sequence[(i * 29) : (i * 29) + 145].upper().replace("N", "A")
         for j in xrange(145):
             model_input[0][0][base_to_row[subseq[j]]][j] = 1
         ISM = model.in_silico_mutagenesis(model_input)
@@ -78,4 +78,4 @@ for name in id_to_seq.keys()[:10]:
                         ism[(experiments[k], chrom, (start + (i * 29) + j))] = [np.amax(np.abs(ISM[k][0][0][:,j]))]
 
 import pickle
-pickle.dump(ism, open("save.p", 'wb'))
+pickle.dump(ism, open("ism_test.p", 'wb'))
