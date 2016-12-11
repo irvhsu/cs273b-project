@@ -31,7 +31,7 @@ experiments = [("minP", "HepG2"), ("minP", "K562"), ("SV40P", "HepG2"), ("SV40P"
 ism = {}
 base_to_row = {'A': 0, 'T': 1, 'C': 2, 'G': 3}
 
-for name in id_to_seq.keys():
+for name in id_to_seq.keys()[0:2000]:
     print name
     sequence, coords = str(id_to_seq[name][0]), id_to_seq[name][1]
     chrom, start, end = str(coords[0]), int(coords[1]), int(coords[2])
@@ -78,4 +78,4 @@ for name in id_to_seq.keys():
                         ism[(experiments[k], chrom, (start + (i * 29) + j))] = [np.amax(np.abs(ISM[k][0][0][:,j]))]
 
 import pickle
-pickle.dump(ism, open("ism_test.p", 'wb'))
+pickle.dump(ism, open("ism_test_2k.p", 'wb'))

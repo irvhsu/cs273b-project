@@ -122,6 +122,7 @@ class MrpaData:
     def _one_hot_encode_seq(self, seq):
         result = np.zeros((len(self.bases), len(seq)))
         for i, base in enumerate(seq):
+            if base == 'N': base = 'A'
             result[self.bases.index(base), i] = 1
         return result
 
