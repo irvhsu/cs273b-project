@@ -32,7 +32,9 @@ ism = {}
 base_to_row = {'A': 0, 'T': 1, 'C': 2, 'G': 3}
 
 def write(experiments, chrom, start, i, j, k, ISM):
-    print ','.join(map(str, [experiments[k][0], experiments[k][1], chrom, (start + (i * 29) + j), np.amax(np.abs(ISM[k][0][0][:,j]))]))
+    low, high = min(ISM[k][0][0][:, j]), max(ISM[k][0][0][:, j])
+    score = low if abs(low) > abs(high) else high
+    print ','.join(map(str, [experiments[k][0], experiments[k][1], chrom, (start + (i * 29) + j), score]))
 
 for name in id_to_seq.keys():
     sequence, coords = str(id_to_seq[name][0]), id_to_seq[name][1]
