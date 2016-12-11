@@ -31,8 +31,10 @@ experiments = [("minP", "HepG2"), ("minP", "K562"), ("SV40P", "HepG2"), ("SV40P"
 ism = {}
 base_to_row = {'A': 0, 'T': 1, 'C': 2, 'G': 3}
 
-for name in id_to_seq.keys()[0:2000]:
-    print name
+def write(experiments, chrom, start, i, j, k, ISM):
+    print ','.join(map(str, [experiments[k][0], experiments[k][1], chrom, (start + (i * 29) + j), np.amax(np.abs(ISM[k][0][0][:,j]))]))
+
+for name in id_to_seq.keys():
     sequence, coords = str(id_to_seq[name][0]), id_to_seq[name][1]
     chrom, start, end = str(coords[0]), int(coords[1]), int(coords[2])
     for i in xrange(-4, 0):
@@ -45,10 +47,7 @@ for name in id_to_seq.keys()[0:2000]:
             # we are looking at position: start + (i * 29) + j
             if (start + (i * 29) + j) in range(start, end):
                 for k in xrange(len(experiments)):
-                    if (experiments[k], chrom, (start + (i * 29) + j)) in ism:
-                        ism[(experiments[k], chrom, (start + (i * 29) + j))].append(np.amax(np.abs(ISM[k][0][0][:,j])))
-                    else:
-                        ism[(experiments[k], chrom, (start + (i * 29) + j))] = [np.amax(np.abs(ISM[k][0][0][:,j]))]
+                    write(experiments, chrom, start, i, j, k, ISM)
     for i in xrange(0, 6):
         model_input = np.zeros((1, 1, 4, 145))
         subseq = sequence[(i * 29) : (i * 29) + 145].upper().replace("N", "A")
@@ -58,10 +57,7 @@ for name in id_to_seq.keys()[0:2000]:
         for j in xrange(145):
             # we are looking at position: start + (i * 29) + j
             for k in xrange(len(experiments)):
-                if (experiments[k], chrom, (start + (i * 29) + j)) in ism:
-                    ism[(experiments[k], chrom, (start + (i * 29) + j))].append(np.amax(np.abs(ISM[k][0][0][:,j])))
-                else:
-                    ism[(experiments[k], chrom, (start + (i * 29) + j))] = [np.amax(np.abs(ISM[k][0][0][:,j]))]
+                write(experiments, chrom, start, i, j, k, ISM)
     for i in xrange(6, 10):
         model_input = np.zeros((1, 1, 4, 145))
         subseq = bases(chrom, start + (i * 29), start + (i * 29) + 145).upper().replace("N", "A")
@@ -72,10 +68,4 @@ for name in id_to_seq.keys()[0:2000]:
             # we are looking at position: start + (i * 29) + j
             if (start + (i * 29) + j) in range(start, end):
                 for k in xrange(len(experiments)):
-                    if (experiments[k], chrom, (start + (i * 29) + j)) in ism:
-                        ism[(experiments[k], chrom, (start + (i * 29) + j))].append(np.amax(np.abs(ISM[k][0][0][:,j])))
-                    else:
-                        ism[(experiments[k], chrom, (start + (i * 29) + j))] = [np.amax(np.abs(ISM[k][0][0][:,j]))]
-
-import pickle
-pickle.dump(ism, open("ism_test_2k.p", 'wb'))
+                    write(experiments, chrom, start, i, j, k, ISM)
