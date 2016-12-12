@@ -22,7 +22,7 @@ from collections import defaultdict
 import json
 from dragonn import models
 
-model = models.SequenceDNN_Regression.load("model.arch.json", "model.weights.h5")
+model = models.SequenceDNN_Regression.load("models/models/145_weighted.arch.json", "models/models/145_weighted.weights.h5")
 
 f = open("../../id_dict_gen/id_dict.txt", 'r')
 id_to_seq = json.loads(f.readlines()[0])
