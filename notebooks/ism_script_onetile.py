@@ -33,9 +33,9 @@ experiments = [("minP", "HepG2"), ("minP", "K562"), ("SV40P", "HepG2"), ("SV40P"
 for name in id_to_seq.keys():
     sequence, coords = str(id_to_seq[name][0]), id_to_seq[name][1]
     chrom, start, end = str(coords[0]), int(coords[1]), int(coords[2])
-    big_seq = bases(chrom, start - 72, end + 72)
+    big_seq = bases(chrom, start - 72, end + 72).upper().replace('N', 'A')
     for i in xrange(295):
         middle_seq = big_seq[i : i + 145]
         ISM = in_silico_mutagenesis(model, middle_seq)
         for j in xrange(4):
-            print '\t'.join(map(str, [chrom, start + i, start + i + 1, ISM[j], j, '+']))
+            print '\t'.join(map(str, [chrom, start + i, start + i + 1, j, ISM[j], '+']))

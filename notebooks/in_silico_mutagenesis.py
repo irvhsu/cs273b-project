@@ -1,4 +1,5 @@
-bases = ['A', 'C', 'G', 'T']
+import numpy as np
+bases = ['A', 'T', 'C', 'G']
 length = 145
 middle = length / 2
 
