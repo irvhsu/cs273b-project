@@ -34,9 +34,9 @@ class Model(object):
     def predict(self, X):
         pass
 
-    def test(self, X, y):
+    def test(self, X, y, sample_weight=None):
         if isinstance(self, dragonn.models.SequenceDNN_Regression):
-            return RegressionResult(y, self.predict(X)) 
+            return RegressionResult(y, self.predict(X), sample_weight) 
         else:
             return ClassificationResult(y, self.predict(X))
 
@@ -352,7 +352,7 @@ class SequenceDNN_Regression(Model):
                 self.model.add(TimeDistributedDense(TDD_size, activation='relu'))
             self.model.add(Flatten())
             self.model.add(Dense(output_dim=self.num_tasks))
-            self.model.compile(optimizer='adam', loss='mse')
+            self.model.compile(optimizer='adam', loss='mse', sample_weight_mode="temporal")
         else:
             raise ValueError("Exactly one of seq_length or keras_model must be specified!")
 
