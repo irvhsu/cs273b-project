@@ -3,7 +3,6 @@ import json, matplotlib, numpy as np, os, subprocess, tempfile
 matplotlib.use('pdf')
 import matplotlib.pyplot as plt
 from abc import abstractmethod, ABCMeta
-import dragonn
 from metrics import RegressionResult
 from keras.models import Sequential
 from keras.callbacks import EarlyStopping
@@ -14,10 +13,6 @@ from keras.layers.core import (
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
 from keras.layers.recurrent import GRU
 from keras.regularizers import l1
-from sklearn.svm import SVC as scikit_SVC
-from sklearn.tree import DecisionTreeClassifier as scikit_DecisionTree
-from sklearn.ensemble import RandomForestClassifier
-
 
 class Model(object):
     __metaclass__ = ABCMeta
@@ -276,144 +271,3 @@ class SequenceDNN_Regression(Model):
         if weights_fname is not None:
             sequence_dnn.model.load_weights(weights_fname)
         return sequence_dnn
-
-class MotifScoreRNN(Model):
-
-    def __init__(self, input_shape, gru_size=10, tdd_size=4):
-        self.model = Sequential()
-        self.model.add(GRU(gru_size, return_sequences=True,
-                           input_shape=input_shape))
-        if tdd_size is not None:
-            self.model.add(TimeDistributedDense(tdd_size))
-        self.model.add(Flatten())
-        self.model.add(Dense(1))
-        self.model.add(Activation('sigmoid'))
-        print('Compiling model...')
-        self.model.compile(optimizer='adam', loss='binary_crossentropy')
-
-    def train(self, X, y, validation_data):
-        print('Training model...')
-        multitask = y.shape[1] > 1
-        if not multitask:
-            num_positives = y.sum()
-            num_sequences = len(y)
-            num_negatives = num_sequences - num_positives
-        self.model.fit(
-            X, y, batch_size=128, nb_epoch=100,
-            validation_data=validation_data,
-            class_weight={True: num_sequences / num_positives,
-                          False: num_sequences / num_negatives}
-            if not multitask else None,
-            callbacks=[EarlyStopping(monitor='val_loss', patience=10)],
-            verbose=True)
-
-    def predict(self, X):
-        return self.model.predict(X, batch_size=128, verbose=False)
-
-
-class gkmSVM(Model):
-
-    def __init__(self, prefix='./gkmSVM', word_length=11, mismatches=3, C=1,
-                 threads=1, cache_memory=100, verbosity=4):
-        self.word_length = word_length
-        self.mismatches = mismatches
-        self.C = C
-        self.threads = threads
-        self.prefix = '_'.join(map(str, (prefix, word_length, mismatches, C)))
-        options_list = zip(
-            ['-l', '-d', '-c', '-T', '-m', '-v'],
-            map(str, (word_length, mismatches, C, threads, cache_memory, verbosity)))
-        self.options = ' '.join([' '.join(option) for option in options_list])
-
-    @property
-    def model_file(self):
-        model_fname = '{}.model.txt'.format(self.prefix)
-        return model_fname if os.path.isfile(model_fname) else None
-
-    @staticmethod
-    def encode_sequence_into_fasta_file(sequence_iterator, ofname):
-        """writes sequences into fasta file
-        """
-        with open(ofname, "w") as wf:
-            for i, seq in enumerate(sequence_iterator):
-                print('>{}'.format(i), file=wf)
-                print(seq, file=wf)
-
-    def train(self, X, y, validation_data=None):
-        """
-        Trains gkm-svm, saves model file.
-        """
-        y = y.squeeze()
-        pos_sequence = X[y]
-        neg_sequence = X[~y]
-        pos_fname = "%s.pos_seq.fa" % self.prefix
-        neg_fname = "%s.neg_seq.fa" % self.prefix
-        # create temporary fasta files
-        self.encode_sequence_into_fasta_file(pos_sequence, pos_fname)
-        self.encode_sequence_into_fasta_file(neg_sequence, neg_fname)
-        # run command
-        command = ' '.join(
-            ('gkmtrain', self.options, pos_fname, neg_fname, self.prefix))
-        process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
-        process.wait()  # wait for it to finish
-        # remove fasta files
-        os.system("rm %s" % pos_fname)
-        os.system("rm %s" % neg_fname)
-
-    def predict(self, X):
-        if self.model_file is None:
-            raise RuntimeError("GkmSvm hasn't been trained!")
-        # write test fasta file
-        test_fname = "%s.test.fa" % self.prefix
-        self.encode_sequence_into_fasta_file(X, test_fname)
-        # test gkmsvm
-        temp_ofp = tempfile.NamedTemporaryFile()
-        threads_option = '-T %s' % (str(self.threads))
-        command = ' '.join(['gkmpredict',
-                            test_fname,
-                            self.model_file,
-                            temp_ofp.name,
-                            threads_option])
-        process = subprocess.Popen(command, shell=True)
-        process.wait()  # wait for it to finish
-        os.system("rm %s" % test_fname)  # remove fasta file
-        # get classification results
-        temp_ofp.seek(0)
-        y = np.array([line.split()[-1] for line in temp_ofp], dtype=float)
-        temp_ofp.close()
-        return np.expand_dims(y, 1)
-
-
-class SVC(Model):
-
-    def __init__(self):
-        self.classifier = scikit_SVC(probability=True, kernel='linear')
-
-    def train(self, X, y, validation_data=None):
-        self.classifier.fit(X, y)
-
-    def predict(self, X):
-        return self.classifier.predict_proba(X)[:, 1:]
-
-
-class DecisionTree(Model):
-
-    def __init__(self):
-        self.classifier = scikit_DecisionTree()
-
-    def train(self, X, y, validation_data=None):
-        self.classifier.fit(X, y)
-
-    def predict(self, X):
-        predictions = np.asarray(self.classifier.predict_proba(X))[..., 1]
-        if len(predictions.shape) == 2:  # multitask
-            predictions = predictions.T
-        else:  # single-task
-            predictions = np.expand_dims(predictions, 1)
-        return predictions
-
-
-class RandomForest(DecisionTree):
-
-    def __init__(self):
-        self.classifier = RandomForestClassifier(n_estimators=100)
