@@ -267,7 +267,7 @@ class SequenceDNN_Regression(Model):
     def load(arch_fname, weights_fname=None):
         from keras.models import model_from_json
         model_json_string = open(arch_fname).read()
-        sequence_dnn = SequenceDNN(keras_model=model_from_json(model_json_string))
+        sequence_dnn = SequenceDNN_Regression(keras_model=model_from_json(model_json_string))
         if weights_fname is not None:
             sequence_dnn.model.load_weights(weights_fname)
         return sequence_dnn
