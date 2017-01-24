@@ -1,0 +1,535 @@
+Using Theano backend.
+Using gpu device 0: Tesla K80 (CNMeM is disabled, cuDNN 5005)
+/usr/local/anaconda3/envs/regression_dragonn_new/lib/python2.7/site-packages/theano/tensor/signal/downsample.py:6: UserWarning: downsample module has been moved to the theano.tensor.signal.pool module.
+  "downsample module has been moved to the theano.tensor.signal.pool module.")
+Using Theano backend.
+Using gpu device 0: Tesla K80 (CNMeM is disabled, cuDNN 5005)
+/usr/local/anaconda3/envs/regression_dragonn_new/lib/python2.7/site-packages/theano/tensor/signal/downsample.py:6: UserWarning: downsample module has been moved to the theano.tensor.signal.pool module.
+  "downsample module has been moved to the theano.tensor.signal.pool module.")
+Traceback (most recent call last):
+  File "bed_to_deeplift.py", line 86, in <module>
+    with gzip.open("../../data/dnase/{}.dnase.fa.gz".format(sys.argv[1])) as dnase:
+  File "/usr/local/anaconda3/envs/regression_dragonn_new/lib/python2.7/gzip.py", line 34, in open
+    return GzipFile(filename, mode, compresslevel)
+  File "/usr/local/anaconda3/envs/regression_dragonn_new/lib/python2.7/gzip.py", line 94, in __init__
+    fileobj = self.myfileobj = __builtin__.open(filename, mode or 'rb')
+IOError: [Errno 2] No such file or directory: '../../data/dnase/k5622.dnase.fa.gz'
+Using Theano backend.
+Using gpu device 0: Tesla K80 (CNMeM is disabled, cuDNN 5005)
+/usr/local/anaconda3/envs/regression_dragonn_new/lib/python2.7/site-packages/theano/tensor/signal/downsample.py:6: UserWarning: downsample module has been moved to the theano.tensor.signal.pool module.
+  "downsample module has been moved to the theano.tensor.signal.pool module.")
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+Using Theano backend.
+Using gpu device 0: Tesla K80 (CNMeM is disabled, cuDNN 5005)
+/usr/local/anaconda3/envs/regression_dragonn_new/lib/python2.7/site-packages/theano/tensor/signal/downsample.py:6: UserWarning: downsample module has been moved to the theano.tensor.signal.pool module.
+  "downsample module has been moved to the theano.tensor.signal.pool module.")
+Traceback (most recent call last):
+  File "bed_to_deeplift.py", line 86, in <module>
+    with gzip.open("../../data/dnase/{}.dnase.fa.gz".format(sys.argv[1])) as dnase:
+  File "/usr/local/anaconda3/envs/regression_dragonn_new/lib/python2.7/gzip.py", line 34, in open
+    return GzipFile(filename, mode, compresslevel)
+  File "/usr/local/anaconda3/envs/regression_dragonn_new/lib/python2.7/gzip.py", line 94, in __init__
+    fileobj = self.myfileobj = __builtin__.open(filename, mode or 'rb')
+IOError: [Errno 2] No such file or directory: '../../data/dnase/k562.dnase.fa.gz'
+Using Theano backend.
+Using gpu device 0: Tesla K80 (CNMeM is disabled, cuDNN 5005)
+/usr/local/anaconda3/envs/regression_dragonn_new/lib/python2.7/site-packages/theano/tensor/signal/downsample.py:6: UserWarning: downsample module has been moved to the theano.tensor.signal.pool module.
+  "downsample module has been moved to the theano.tensor.signal.pool module.")
+Using Theano backend.
+Using gpu device 0: Tesla K80 (CNMeM is disabled, cuDNN 5005)
+/usr/local/anaconda3/envs/regression_dragonn_new/lib/python2.7/site-packages/theano/tensor/signal/downsample.py:6: UserWarning: downsample module has been moved to the theano.tensor.signal.pool module.
+  "downsample module has been moved to the theano.tensor.signal.pool module.")
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000
+No reference provided - using zeros
+Done 0
+Done 16000
+Done 32000
+Done 48000
+Done 64000
+Done 80000
+Done 96000
+Done 112000
+Done 128000
+Done 144000

@@ -52,7 +52,7 @@ deeplift_contribs_func = deeplift_model.get_target_contribs_func(find_scores_lay
 
 def batch(coords, seqs, out, deepift_func):
     X = seqs_to_encoded_matrix(seqs)
-    scores = np.array(deeplift_contribs_func(task_idx=0, input_data_list=[X], batch_size=128, progress_update=1000))
+    scores = np.array(deeplift_contribs_func(task_idx=1, input_data_list=[X], batch_size=128, progress_update=1000))
     
     # Map deeplift output back into genomic coordinates
     seq_idx = 0
@@ -83,7 +83,7 @@ def batch(coords, seqs, out, deepift_func):
 
 #######################################################################
 
-with gzip.open("../../data/dnase/{}.dnase.fa.gz".format(sys.argv[1])) as dnase:
+with gzip.open("/mnt/dnase/{}.dnase.fa.gz".format(sys.argv[1])) as dnase:
     chrom = None
     site_num = 0
     seqs, coords = [], []
@@ -102,8 +102,9 @@ with gzip.open("../../data/dnase/{}.dnase.fa.gz".format(sys.argv[1])) as dnase:
             seq += line.strip()
 
         if site_num % 20000 == 0:
-            if site_num > 50000:
-                with gzip.open("../../data/dnase/{}_deeplift_{}.tsv.gz".format(sys.argv[1], site_num), 'w') as out:
-                    batch(coords, seqs, out, deeplift_contribs_func)
+            with gzip.open("/mnt/dnase/{}_deeplift_1_{}.tsv.gz".format(sys.argv[1], site_num), 'w') as out:
+                batch(coords, seqs, out, deeplift_contribs_func)
             seqs, coords = [], []
+            if site_num > 90000:
+                break
 
