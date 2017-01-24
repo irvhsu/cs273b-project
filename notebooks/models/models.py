@@ -3,7 +3,7 @@ import json, matplotlib, numpy as np, os, subprocess, tempfile
 matplotlib.use('pdf')
 import matplotlib.pyplot as plt
 from abc import abstractmethod, ABCMeta
-from metrics import RegressionResult
+from models.metrics import RegressionResult
 from keras.models import Sequential
 from keras.callbacks import EarlyStopping
 from keras.layers.core import (
@@ -98,6 +98,7 @@ class SequenceDNN_Regression(Model):
                 self.model.add(TimeDistributedDense(TDD_size, activation='relu'))
             self.model.add(Flatten())
             self.model.add(Dense(output_dim=self.num_tasks))
+            self.model.add(Activation('linear'))
             self.model.compile(optimizer='adam', loss='mse')
         else:
             raise ValueError("Exactly one of seq_length or keras_model must be specified!")
@@ -165,7 +166,7 @@ class SequenceDNN_Regression(Model):
         deeplift_model = kc.convert_sequential_model(
            self.model, nonlinear_mxts_mode=NonlinearMxtsMode.DeepLIFT)
         target_contribs_func = deeplift_model.get_target_contribs_func(
-            find_scores_layer_idx=0)
+            find_scores_layer_idx=-1)
         input_reference_shape = tuple([1] + list(X.shape[1:]))
         return np.asarray([
             target_contribs_func(task_idx=i, input_data_list=[X],
