@@ -3,7 +3,7 @@ import json, matplotlib, numpy as np, os, subprocess, tempfile
 matplotlib.use('pdf')
 import matplotlib.pyplot as plt
 from abc import abstractmethod, ABCMeta
-from models.metrics import RegressionResult
+from metrics import RegressionResult
 from keras.models import Sequential
 from keras.callbacks import EarlyStopping
 from keras.layers.core import (
